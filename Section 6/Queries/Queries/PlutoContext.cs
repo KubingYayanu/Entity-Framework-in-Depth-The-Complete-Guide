@@ -1,0 +1,23 @@
+using System.Data.Entity;
+using Queries.EntityConfigurations;
+using Queries.Helper;
+
+namespace Queries
+{
+    public class PlutoContext : DbContext
+    {
+        public PlutoContext()
+            : base(ConnectionStringHelper.GetSqlConnection("PlutoContext"))
+        {
+        }
+
+        public virtual DbSet<Author> Authors { get; set; }
+        public virtual DbSet<Course> Courses { get; set; }
+        public virtual DbSet<Tag> Tags { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Configurations.Add(new CourseConfiguration());
+        }
+    }
+}
